@@ -15,7 +15,20 @@ public class Ex05 {
         //num3 = 40;
 
 
-        System.out.println(num3);
+        System.out.println(num3); //
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
