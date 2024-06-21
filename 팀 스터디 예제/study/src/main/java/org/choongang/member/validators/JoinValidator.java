@@ -1,2 +1,5 @@
-package org.choongang.member.validators;public class JoinValidator {
+package org.choongang.member.validators;
+
+public class JoinValidator {
+
 }

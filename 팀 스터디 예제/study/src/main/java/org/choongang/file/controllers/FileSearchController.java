@@ -1,2 +1,4 @@
-package org.choongang.file.controllers;public class FileSearchController {
+package org.choongang.file.controllers;
+
+public class FileSearchController {
 }
