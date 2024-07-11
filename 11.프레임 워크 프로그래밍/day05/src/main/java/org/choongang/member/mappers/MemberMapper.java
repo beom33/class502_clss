@@ -1,7 +1,7 @@
-package mappers.member;
+package org.choongang.member.mappers;
 
-import member.entities.Member;
 import org.apache.ibatis.annotations.Select;
+import org.choongang.member.entities.Member;
 
 public interface MemberMapper {
     @Select("SELECT COUNT(*) FROM MEMBER")
