@@ -13,7 +13,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import java.util.Locale;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 
@@ -41,4 +44,14 @@ public class MemberControllerTest {
                 .andDo(print());
     }
 
+    @Test
+    void test2() throws Exception {
+        mockMvc.perform(
+                        get("/member/join")
+                                .header("Accept-Language", Locale.KOREAN.getDisplayLanguage())
+                )
+                .andDo(print());
+    }
 }
+
+

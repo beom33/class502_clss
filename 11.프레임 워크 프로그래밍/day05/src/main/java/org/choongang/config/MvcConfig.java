@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.*;
 @EnableWebMvc
 @Configuration
 @ComponentScan("org.choongang")
-@Import(DBConfig.class)
+@Import({DBConfig.class, MessageConfig.class})
 public class MvcConfig implements WebMvcConfigurer {
 
     @Override
