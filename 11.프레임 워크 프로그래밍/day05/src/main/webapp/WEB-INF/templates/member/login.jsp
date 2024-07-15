@@ -7,7 +7,7 @@
 <spring:message var="saveEmailTitle" code='이메일_기억하기' />
 
 <h1>
-    <spring:message code="로그인" />
+    <spring:message code="로그인🤔" />
 </h1>
 
 <form:form method="post" action="${actionUrl}" autocomplete="off" modelAttribute="requestLogin">

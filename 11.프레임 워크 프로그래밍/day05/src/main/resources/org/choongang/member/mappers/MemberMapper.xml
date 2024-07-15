@@ -17,7 +17,7 @@
     </insert>
 
     <select id="get" resultMap="memberMap">
-        SELECT SEQ, EAMIL, PASSWORD, USER_NAME, REG_DT FROM MEMBER WHERE EMAIL = #{email}
+        SELECT SEQ, EMAIL, PASSWORD, USER_NAME, REG_DT FROM MEMBER WHERE EMAIL = #{email}
     </select>
 
     <select id="exists" resultType="int">
