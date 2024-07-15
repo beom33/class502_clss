@@ -5,7 +5,7 @@
 
 <c:url var="actionUrl" value="/member/join" />
 <h1>
-    <spring:message code="회원가입" />
+    <spring:message code="회원가입🤩" />
 </h1>
 <form:form method="POST" action="${actionUrl}" autocomplete="off" modelAttribute="requestJoin">
     <dl>
