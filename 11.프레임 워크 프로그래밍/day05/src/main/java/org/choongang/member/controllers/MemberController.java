@@ -52,8 +52,7 @@ public class MemberController {
 
     @GetMapping("/login")
     public String login(@ModelAttribute RequestLogin form,
-                        @CookieValue(name = "savedEmail", required = false) String savedEmail
-                         /*,
+                        @CookieValue(name = "savedEmail", required = false) String savedEmail/*,
                         @SessionAttribute(name="member", required = false) Member member */) {
         /*
         if (member != null) {
