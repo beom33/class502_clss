@@ -15,56 +15,54 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@EnableTransactionManagement
 @Configuration
-@MapperScan("org.choongang.member.mappers")
+@EnableTransactionManagement
+@MapperScan("org.choongang")
 @EnableJdbcRepositories("org.choongang")
 public class DBConfig extends AbstractJdbcConfiguration {
 
     @Bean(destroyMethod = "close")
-   public DataSource dataSource() {
+    public DataSource dataSource() {
         DataSource ds = new DataSource();
 
-       /* 연결 설정 S */
+        /* 연결 설정 S */
         ds.setDriverClassName("oracle.jdbc.driver.OracleDriver");
         ds.setUrl("jdbc:oracle:thin:@localhost:1521:XE");
-        ds.setUsername("SPRING");
-        ds.setPassword("oracle");
+        ds.setUsername(System.getenv("db.username"));
+        ds.setPassword(System.getenv("db.password"));
         /* 연결 설정 E */
 
         /* 커넥션 풀 설정 S */
-         ds.setInitialSize(2);
-         ds.setMaxActive(10);
-         ds.setTestWhileIdle(true);
-         ds.setMinEvictableIdleTimeMillis(1000 * 60);
-         ds.setTimeBetweenEvictionRunsMillis(1000 * 5);
-
+        ds.setInitialSize(2);
+        ds.setMaxActive(10);
+        ds.setTestWhileIdle(true);
+        ds.setMinEvictableIdleTimeMillis(1000 * 60);
+        ds.setTimeBetweenEvictionRunsMillis(1000 * 5);
         /* 커넥션 풀 설정 E */
 
         return ds;
-   }
+    }
 
-   @Bean
-   public JdbcTemplate jdbcTemplate() {
+    @Bean
+    public JdbcTemplate jdbcTemplate() {
         return new JdbcTemplate(dataSource());
-   }
+    }
 
-   @Bean
-   public PlatformTransactionManager transactionManager() {
-
+    @Bean
+    public PlatformTransactionManager transactionManager() {
         return new DataSourceTransactionManager(dataSource());
-   }
+    }
 
-   @Bean
-   public SqlSessionFactory sqlSessionFactory() throws Exception {
-       SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
-       factoryBean.setDataSource(dataSource());
+    @Bean
+    public SqlSessionFactory sqlSessionFactory() throws Exception {
+        SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
+        factoryBean.setDataSource(dataSource());
 
-       return factoryBean.getObject();
-   }
+        return factoryBean.getObject();
+    }
 
-   @Bean
-   public NamedParameterJdbcOperations namedParameterJdbcOperations(DataSource dataSource) {
+    @Bean
+    public NamedParameterJdbcOperations namedParameterJdbcOperations(DataSource dataSource) {
         return new NamedParameterJdbcTemplate(dataSource);
-   }
+    }
 }
