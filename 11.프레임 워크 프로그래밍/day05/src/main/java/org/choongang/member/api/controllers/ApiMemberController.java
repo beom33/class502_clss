@@ -2,12 +2,14 @@ package org.choongang.member.api.controllers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.choongang.member.controllers.RequestJoin;
 import org.choongang.member.entities.Member;
 import org.choongang.member.mappers.MemberMapper;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.choongang.member.services.JoinService;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,6 +22,17 @@ import java.util.stream.IntStream;
 public class ApiMemberController {
 
     private final MemberMapper mapper;
+    private final JoinService joinService;
+
+    @PostMapping // POST /api/member
+    public ResponseEntity join(@RequestBody RequestJoin form) {
+
+        joinService.process(form);
+
+        //응답 코드 201, 출력 바디 X
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
 
     @GetMapping("/info/{email}")
     public Member info(@PathVariable("email") String email) {
@@ -31,7 +44,7 @@ public class ApiMemberController {
     }
 
     @GetMapping("/list")
-    public List<Member> list() {
+    public ResponseEntity <List<Member>> list() {
         List<Member> members = IntStream.rangeClosed(1, 10)
                 .mapToObj(i -> Member.builder()
                         .email("user" + i + "@test.org")
@@ -41,13 +54,19 @@ public class ApiMemberController {
                         .build())
                 .toList();
 
-        return members;
+        HttpHeaders headers = new HttpHeaders(); // 응답 헤더
+        headers.add("t1","v1");
+        headers.add("t2", "v2");
+
+        return new ResponseEntity<>(members, headers, HttpStatus.OK);
+
+       // return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(members);
     }
 
     @GetMapping(path="/test", produces = "text/html;charset=UTF-8")
     public String test() {
         // Content-Type: text/plain
-        return "안녕하세요!";
+        return "ỉn ḥtp!🐪";
     }
 
     @GetMapping("/test2")

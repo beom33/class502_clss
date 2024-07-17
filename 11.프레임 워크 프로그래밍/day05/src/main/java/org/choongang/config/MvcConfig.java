@@ -1,5 +1,8 @@
 package org.choongang.config;
 
+import ch.qos.logback.core.BasicStatusManager;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.RequiredArgsConstructor;
 import org.choongang.member.validators.JoinValidator;
 import org.springframework.context.annotation.Bean;
@@ -8,9 +11,19 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Validator;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.*;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Locale;
 
 @Configuration
 @EnableWebMvc
@@ -23,6 +36,7 @@ import org.springframework.web.servlet.config.annotation.*;
 
 //@RequiredArgsConstructor
 public class MvcConfig implements WebMvcConfigurer {
+
 /*
     private final JoinValidator joinValidator;
 
@@ -76,5 +90,17 @@ public class MvcConfig implements WebMvcConfigurer {
         conf.setLocations(new ClassPathResource("applications.properties"));
 
         return conf;
+    }
+
+    @Override
+    public void  extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        ObjectMapper objectMapper = Jackson2ObjectMapperBuilder
+                .xml()
+                .serializerByType(LocalDateTime.class, new LocalDateTimeSerializer
+                        (formatter))
+                .build();
+
+        converters.add(0, new MappingJackson2HttpMessageConverter(objectMapper));
     }
 }
