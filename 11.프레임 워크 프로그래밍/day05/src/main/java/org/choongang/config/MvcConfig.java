@@ -87,7 +87,7 @@ public class MvcConfig implements WebMvcConfigurer {
 
         PropertySourcesPlaceholderConfigurer conf = new
                 PropertySourcesPlaceholderConfigurer();
-        conf.setLocations(new ClassPathResource("applications.properties"));
+        conf.setLocations(new ClassPathResource(fileName + ".properties"));
 
         return conf;
     }
@@ -96,7 +96,7 @@ public class MvcConfig implements WebMvcConfigurer {
     public void  extendMessageConverters(List<HttpMessageConverter<?>> converters) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         ObjectMapper objectMapper = Jackson2ObjectMapperBuilder
-                .xml()
+                .json()
                 .serializerByType(LocalDateTime.class, new LocalDateTimeSerializer
                         (formatter))
                 .build();
