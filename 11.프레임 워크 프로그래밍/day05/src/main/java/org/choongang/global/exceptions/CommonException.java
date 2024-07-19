@@ -12,7 +12,7 @@ public class CommonException extends RuntimeException {
 
     private HttpStatus status;
 
-    private Map<String, List<String>> errorMessages;
+    private Map<String, List<String>> errorMessages; // 커맨드 객체의 검증을 위해 넣었다.
 
     public CommonException(String message) {
         this(message, HttpStatus.INTERNAL_SERVER_ERROR); // 500

@@ -42,6 +42,7 @@ public class LoginValidator implements Validator {
             if (member == null) {
                 //errors.rejectValue("email", "Check.emailPassword");
                 errors.reject("Check.emailPassword");
+                // 에러즈 객체는 커맨드 객체 에 대한 검증 실패시 메세지가 담겨져 있다.
             }
 
 
