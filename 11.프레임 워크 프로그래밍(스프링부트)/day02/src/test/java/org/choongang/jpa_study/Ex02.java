@@ -24,7 +24,7 @@ public class Ex02 {
     void init() {
         for (long i = 1L; i <= 10L; i++) {
             Member member = new Member();
-            member.setSeq(i);
+            //member.setSeq(i);
             member.setEmail("user" + i + "@test.org");
             member.setPassword("12345678");
             member.setUserName("사용자" + i);
@@ -50,10 +50,9 @@ public class Ex02 {
 
         member.setUserName("(수정)사용자1");
 
-
         //em.flush(); // UPDATE 쿼리 수행
-        // 값 변경후, 삭제 상태 변경 후 해당 데이터를 조회 -> 암묵적으로 flsh()가 수행된다.
-        Member member3 = em.find(Member.class, 1L); // -> 이러면 암묵적으로  flush 가 수행
+        // 값 변경후, 삭제 상태 변경 후 해당 데이터를 조회 -> 암묵적으로 flush()
+        Member member3 = em.find(Member.class, 1L);
         System.out.println(member3);
     }
 }
