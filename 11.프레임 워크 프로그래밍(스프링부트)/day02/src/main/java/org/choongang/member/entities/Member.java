@@ -5,6 +5,7 @@ import lombok.*;
 import org.choongang.board.entities.BoardData;
 import org.choongang.global.entities.BaseEntity;
 import org.choongang.member.constants.Authority;
+import org.hibernate.annotations.BatchSize;
 
 import java.util.List;
 
@@ -44,8 +45,9 @@ public class Member extends BaseEntity {
     private MemberProfile profile;
 
 
+    @BatchSize(size = 3)
     @ToString.Exclude // ToString 추가 배제
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<BoardData> items;
 
 
